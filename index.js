@@ -44,7 +44,7 @@ class Menu {
                     break;
                 case '3':
                     this.deleteTeam();
-                    break
+                    break;
                 case '4':
                     this.displayTeams();
                     break;
@@ -95,7 +95,7 @@ class Menu {
                 this.createPlayer();
                 break;
             case '2':
-                this,deletePlayer();
+                this.deletePlayer();
            }
        }
     
