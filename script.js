@@ -96,8 +96,8 @@ class Menu { //starts the application and our choices
             this.selectedBoxer = this.boxers[index];
             let description = 'Boxer Name: ' + this.selectedBoxer.name + '\n';
             description += ' ' + this.selectedBoxer.describe() + '\n';
-            for (let i = 0; i < this.selectedBoxer.ranks.length; i++) {
-                description += i + ') ' + this.selectedBoxer.ranks[i].describe() + '\n';
+            for (let i = 0; i < this.selectedBoxer.rankings; i++) {
+              description += i + ') ' + this.selectedBoxer[i].describe() + '\n';
             }
             let selection1 = this.showBoxerMenuOptions(description);  // boxer options menu to create rank or delete rank.  
             switch (selection1) {
@@ -107,29 +107,44 @@ class Menu { //starts the application and our choices
                 case '2' : 
                 this.deleteRank();
                }
-             }    
-         }  
-
-    deleteBoxer() {
+             }     
+        }
+       
+        deleteBoxer()  {
             let index = prompt('Enter the index of the Boxer you wish to Delete: ');  // Delete the Boxer by index
             if (index > -1 && index < this.boxers.length) {
             this.boxers.splice(index,1);
             }
+        }
+         createRank() {  // create a ranking for the boxer to be compared to other boxers
+            let rankings = prompt('Enter amatuer, junior or pro for the ranking of the new Boxer: ');
+            this.selectedBoxer = this.boxers[index];
+            this.selectedBoxer.append(index, new Rank(rankings));
+            //this.selectedBoxer.addRank(new Rank(rankings));
+            let selection1 = this.showBoxerMenuOptions(description);  // boxer options menu to create rank or delete rank.  
+                switch (selection1) {
+                    case '1' :
+                    this.amatuer();
+                    break;
+                    case '2' : 
+                    this.junior();
+                    break;
+                    case '3' :
+                    this.pro();
+                    default:
+                        selection1=0;
+                }
 
-    createRank(); {  // create a ranking for the boxer to be compared to other boxers
-        let rankings = prompt('Enter amatuer, junior or pro for the ranking of the new Boxer: ');
-        this.ranks.push(new Rank(rankings));
              }
   
-    deleteRank(); {   // delete the ranking of the boxer.
-        let index = prompt('Enter the index of the Ranking you wish to delete');
-        if (index > -1 && index < this.selectedBoxer.ranks.length) {
-            this.boxer.ranks.splice(index, 1);
+        deleteRank() {   // delete the ranking of the boxer.
+            let index = prompt('Enter the index of the Ranking you wish to delete');
+            if (index > -1 && index < this.selectedBoxer.ranks) {
+                this.selectedBoxer.ranks.splice(index, 1);
             }
         }
 
-    }    
-}
+      }
 
 let menu = new Menu();
 menu.start();
