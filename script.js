@@ -35,24 +35,25 @@ class Rank {     // sets Ranking of the Boxer to combine with similar rankings
 
 class Menu { //starts the application and our choices
     constructor() {
-        this.rank = [];
-        this.selected.boxer = null;   
+        this.boxers = []; 
+        this.selectedBoxer = null;   // manage one boxer at a time. 
     }
-    start() {
+
+    start() {  // entry of application data. select options. 
         let selection = this.showMainMenuOptions();
         while (selection != 0) {
             switch(selection) {
                 case '1':
-                    this.createBoxer();
+                    this.createBoxer();  // create a boxer 
                     break;
                 case '2':
-                    this.viewBoxer();
+                    this.viewBoxer();  // view
                     break;
                 case '3':
-                    this.deleteBoxer();
+                    this.deleteBoxer();  // delete
                     break; 
                 case '4':
-                    this.displayBoxers();
+                    this.displayBoxers();  //display all>?
                     break;
                 default:
                     selection=0;
@@ -63,84 +64,72 @@ class Menu { //starts the application and our choices
     }
 
     showMainMenuOptions() {
-        return prompt('0) exit, 1 Create New Boxer, 2 View Boxer, 3 Delete Boxer, 4 Display Boxers');
-    }
+        return prompt('0 exit, 1 Create New Boxer, 2 View Boxer, 3 Delete Boxer, 4 Display all Boxers' );  // prompts as explained in video did not work on this version. 
+           }
 
     showBoxerMenuOptions(_boxerInfo) {
-        return prompt('0 back, 1 create rank, 2 delete rank, ${boxerInfo}');
-    }
-}
+        return prompt('0 back, 1 create rank, 2 delete rank, ${boxerInfo} ');
+            }
 
-displayBoxer(); {
-    let boxerString = '';
-    for (let i = 0; i <this.boxers.length; i++) {
-        boxerString += i + ') ' + this.boxers[i].name + '\n';
-    }
-    alert(boxerString);
-}
+    displayBoxers() {   //display boxers does not run. displays an error that it is not defined. 
+            let boxerString = ' ';
+                for (let i = 0; i < this.boxers.length; i++) {
+                boxerString += i + ') ' + this.boxers[i].name + '\n';
+                    }
+                alert(boxerString);
+                }
 
-createBoxer(); {
-    let name = prompt('Enter Name for a new Boxer:');
-    let hometown = prompt('Enter Hometown for new Boxer: ');
-    let weight = prompt('Enter Weight for new Boxer: ');
-    let height = prompt('Enter Height of new Boxer: ');
-        this.boxers.push(new Boxer(name));
-        this.boxers.push(new Boxer(hometown));
-        this.boxers.push(new Boxer(weight));
-        this.boxers.push(new Boxer(height));
-    }
-
-viewBoxer(); {
-    let index = prompt('Enter the index of the Boxer you wish to view');
-    if (index > -1 && index < this.boxers.length) {
-        this.selectedBoxer = this.boxers[index];
-        let description = 'Boxer Name: ' + this.selectedBoxer.name + '\n';
-        description += ' ' + this.selectedBoxer.describe() + '\n';
-        for (let i = 0; i < this.selectedBoxer.ranks.length; i++) {
-            description += i + ') ' + this.selectedBoxer.ranks[i].describe() + '\n';
-        }
-        let selection1 = this.showBoxerMenuOptions(description);
-        switch (selection) {
-            case '1' :
-            this.createRank();
-            break;
-            case '2' : 
-            this.deleteRank();
-
+    createBoxer()   {//create Boxer information.
+        let name = prompt('Enter Name for a new Boxer:');
+        let hometown = prompt('Enter Hometown for new Boxer: ');
+        let weight = prompt('Enter Weight for new Boxer: ');
+        let height = prompt('Enter Height of new Boxer: ');
+            this.boxers.push(new Boxer(name));
+            this.boxers.push(new Boxer(hometown));
+            this.boxers.push(new Boxer(weight));
+            this.boxers.push(new Boxer(height));
         }
 
-    }  
-
-    deleteBoxer(); {
-        let index = prompt('Enter the index of the Boxer you wish to Delete: ');
+    viewBoxer()  {   // view Boxer 
+        let index = prompt('Enter the index of the Boxer you wish to view');
         if (index > -1 && index < this.boxers.length) {
-        this.boxers.splice(index,1);
-        }
-    }
+            this.selectedBoxer = this.boxers[index];
+            let description = 'Boxer Name: ' + this.selectedBoxer.name + '\n';
+            description += ' ' + this.selectedBoxer.describe() + '\n';
+            for (let i = 0; i < this.selectedBoxer.ranks.length; i++) {
+                description += i + ') ' + this.selectedBoxer.ranks[i].describe() + '\n';
+            }
+            let selection1 = this.showBoxerMenuOptions(description);  // boxer options menu to create rank or delete rank.  
+            switch (selection1) {
+                case '1' :
+                this.createRank();
+                break;
+                case '2' : 
+                this.deleteRank();
+               }
+             }    
+         }  
 
-    createRank() ;{
+    deleteBoxer() {
+            let index = prompt('Enter the index of the Boxer you wish to Delete: ');  // Delete the Boxer by index
+            if (index > -1 && index < this.boxers.length) {
+            this.boxers.splice(index,1);
+            }
+
+    createRank(); {  // create a ranking for the boxer to be compared to other boxers
         let rankings = prompt('Enter amatuer, junior or pro for the ranking of the new Boxer: ');
         this.ranks.push(new Rank(rankings));
-    
-
-    }
+             }
   
-    deleteRank(); {
+    deleteRank(); {   // delete the ranking of the boxer.
         let index = prompt('Enter the index of the Ranking you wish to delete');
         if (index > -1 && index < this.selectedBoxer.ranks.length) {
             this.boxer.ranks.splice(index, 1);
+            }
         }
-    }
 
-}    
-//Select boxer then complete constructor details. 
-// Add boxer
-// Select Rank, or enter rank
-// enter Boxer information, weight, height, hometown
-// display boxers 
-// add boxers, 
-//.delete boxers
-// 
+    }    
+}
 
 let menu = new Menu();
 menu.start();
