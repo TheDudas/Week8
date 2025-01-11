@@ -19,7 +19,7 @@ class Rank {     // sets Ranking of the Boxer to combine with similar rankings
         this.pro = pro;
         this.boxers = [];
     }
-    addBoxer(boxer)  {
+    addBoxer(boxer)  {  // add boxer to ranking
         if (boxer instanceof Boxer) {
             this.boxers.push(boxer);
         } else {
@@ -28,7 +28,7 @@ class Rank {     // sets Ranking of the Boxer to combine with similar rankings
     }
 
     describe() {
-        return '${this.rank} has ${this.boxer.length} boxers.';
+        return '${this.rank} has ${this.boxer.length} boxers.';  // displays the ranking of the boxer when called. 
     }
 }
 
@@ -68,10 +68,11 @@ class Menu { //starts the application and our choices
            }
 
     showBoxerMenuOptions(_boxerInfo) {
-        return prompt('0 back, 1 create rank, 2 delete rank, ${boxerInfo} ');
+        return prompt('0 back, 1 create rank, 2 delete rank, ${boxerInfo} ');  //shows options to create rankings of boxer 
             }
 
-    displayBoxers() {   //display boxers does not run. displays an error that it is not defined. 
+    displayBoxers() {   //displays all boxers entered.  Also displays all indexes.  May not be seperating by boxer and not working if hometown index is selected. 
+
             let boxerString = ' ';
                 for (let i = 0; i < this.boxers.length; i++) {
                 boxerString += i + ') ' + this.boxers[i].name + '\n';
@@ -81,7 +82,7 @@ class Menu { //starts the application and our choices
 
     createBoxer()   {//create Boxer information.
         let name = prompt('Enter Name for a new Boxer:');
-        let hometown = prompt('Enter Hometown for new Boxer: ');
+        let hometown = prompt('Enter Hometown for new Boxer: '); // enter information when prompted. Adds data to each Index. Not adding to each boxer index
         let weight = prompt('Enter Weight for new Boxer: ');
         let height = prompt('Enter Height of new Boxer: ');
             this.boxers.push(new Boxer(name));
@@ -91,7 +92,7 @@ class Menu { //starts the application and our choices
         }
 
     viewBoxer()  {   // view Boxer 
-        let index = prompt('Enter the index of the Boxer you wish to view');
+        let index = prompt('Enter the index of the Boxer you wish to view');  //Prompts user to enter the index. (Use 0 for the first one)
         if (index > -1 && index < this.boxers.length) {
             this.selectedBoxer = this.boxers[index];
             let description = 'Boxer Name: ' + this.selectedBoxer.name + '\n';
@@ -102,7 +103,7 @@ class Menu { //starts the application and our choices
             let selection1 = this.showBoxerMenuOptions(description);  // boxer options menu to create rank or delete rank.  
             switch (selection1) {
                 case '1' :
-                this.createRank();
+                this.createRank();  // create ranking of boxer
                 break;
                 case '2' : 
                 this.deleteRank();
@@ -119,8 +120,8 @@ class Menu { //starts the application and our choices
          createRank() {  // create a ranking for the boxer to be compared to other boxers
             let rankings = prompt('Enter amatuer, junior or pro for the ranking of the new Boxer: ');
             this.selectedBoxer = this.boxers[index];
-            this.selectedBoxer.append(index, new Rank(rankings));
-            //this.selectedBoxer.addRank(new Rank(rankings));
+            this.selectedBoxer.append(index, new Rank(rankings));   // errors out here.... Cannot get this part fixed.
+            //this.selectedBoxer.addRank(new Rank(rankings));  // need to concantenate together and then select. 
             let selection1 = this.showBoxerMenuOptions(description);  // boxer options menu to create rank or delete rank.  
                 switch (selection1) {
                     case '1' :
@@ -139,12 +140,12 @@ class Menu { //starts the application and our choices
   
         deleteRank() {   // delete the ranking of the boxer.
             let index = prompt('Enter the index of the Ranking you wish to delete');
-            if (index > -1 && index < this.selectedBoxer.ranks) {
+            if (index > -1 && index < this.selectedBoxer.ranks) { // deletes ranking of boxer from boxer. 
                 this.selectedBoxer.ranks.splice(index, 1);
             }
         }
 
       }
 
-let menu = new Menu();
-menu.start();
+let menu = new Menu();   //starts menu as new.  Previous data entered is not held or saved anywhere. 
+menu.start(); 
