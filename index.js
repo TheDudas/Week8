@@ -1,126 +1,121 @@
-// const prompt = require('prompt-sync')();
-
-class Player {
-    constructor(name, position) {
+class Boxer {
+    constructor(name, weight, height, hometown) {
         this.name = name;
-        this.position = position;
+        this.weight = weight;
+        this.height = height;
+        this.hometown = hometown;
     }
     describe() {
-        return '${this.name} plays ${this.position}.';
+        return "Weighing in at ${this.weight} and ${this.height} from ${this.hometown} welcome ${this.name}. ";
+    }
+
+}
+class Rank {
+    constructor(amatuer, junior, pro) {
+        this.amatuer = amatuer;
+        this.junior = junior;
+        this.pro = pro;
     }
 }
 
-class Team {
+class Match {
     constructor(name) {
         this.name = name;
-        this.players  = [];
+        this.rank = [];
     }
-    addPlayer(player) {
-        if (player instanceof Player) {
-            this.players.push(player);
+    addBoxer(boxer)  {
+        if (boxer instanceof boxer) {
+            this.boxer.push(boxer);
         } else {
-            throw new Error('You can only add an instance of Player. Argument is not a player: ${player}');
+            throw new Error('You can only add an instance of boxer. Argument is not a boxer: ${boxer}');
         }
     }
     describe() {
-        return '${this.name} has ${this.players.length} players.';
-    }
+        return '${this.rank} has ${this.boxer.length} boxers.';
+}
 }
 
 class Menu {
     constructor() {
-        this.teams = [];
-        this.selectedTeam = null;
+        this.rank = [];
+        this.selected.boxer = null;   
     }
     start() {
         let selection = this.showMainMenuOptions();
         while (selection != 0) {
-            switch (selection) {
+            switch(selection) {
                 case '1':
-                    this.createTeam();
+                    this.createBoxer();
                     break;
                 case '2':
-                    this.viewTeam();
+                    this.viewBoxer();
                     break;
                 case '3':
-                    this.deleteTeam();
-                    break;
+                    this.deleteBoxer();
+                    break; 
                 case '4':
-                    this.displayTeams();
+                    this.displayBoxer();
                     break;
                 default:
-                    selection = 0;
-            } 
-            selection = this.showMainMenuOptions();
-         } 
-         alert('Goodbye!');
-     }
-
-     showMainMenuOptions() {
-      return prompt ('0 exit, 1 create new team, 2 view team, 3 delete team, 4 display all teams');
-     }
-
-     showTeamMenuOptions(teamInfo) {
-             return prompt('0 back, 1 create player, 2 delete player'); 
-         }
-
-
-    displayTeams() {
-        let teamString = '';
-        for (let i = 0; i < this.teams.length; i++) {
-            teamString += i + ') ' + this.teams[i].name + '\n';
+                    selection=0;
+        }  
+        selection = this.showMainMenuOptions();
         }
-        alert(teamString);
-         }
-
-    createTeam() {
-        let name = prompt('Enter name for new team:');
-        this.teams.push(new Team(name));
-            }
-
-    viewTeam() {
-        let index = prompt('Enter the index of the team you wish to view:');
-        if (index > -1 && index < this.teams.length) {
-            this.selectedTeam = this.teams[index];
-            let description = 'Team Name: ' + this.selectedTeam.name + '\n';
-            
-            for (let i = 0; i < this.selectedTeam.players.length; i++) {
-                description += i + ') ' + this.selectedTeam.players[i].name 
-                + ' - ' + this.selectedTeam.players[i].position + '\n';
-            }
-        }
-         let selection = this.showTeamMenuOptions(description);
-         switch (selection) {
-            case '1':
-                this.createPlayer();
-                break;
-            case '2':
-                this.deletePlayer();
-           }
-       }
-    
-    deleteTeam() {
-        let index = prompt('Enter the index of the team you wich to delete:');
-        if (index > -1 && index < this.teams.length) {
-            this.teams.splice(index, 1);
-        }
-   }
-
-   createPlayer() {
-    let name = prompt('Enter name for new player: ');
-    let position = prompt('Enter position for new player: ');
-    this.selectedTeam.players.push(new Player(name, position));
-
-   }
-   deletePlayer() {
-    let index = prompt('Enter the index of the player you wish to delete: ');
-    if (index > -1 && index < this.selectedTeam.player.length) {
-        this.selectedTeam.players.splice(index, 1);
+        alert("Goodbye!");
     }
-   }
+    showMainMenuOptions() {
+        return prompt('0 exit, 1 Create New Boxer, 2 View Boxer, 3 Delete Boxer, 4 Display Boxer');
+
+    }
+    showBoxerMenuOptions(boxerInfo) {
+        return prompt('0 back, 1 create rank, 2 delete rank');
+
+    }
+}
+displayBoxer() {
+    let boxerString = '';
+    for (let i = 0; i <this.boxer.length; i++) {
+        boxerString += i + ') ' + this.boxer[i].name + '\n';
+    }
+    alert(boxerString);
 }
 
+createBoxer() {
+    let name = prompt('Enter name for new Boxer:');
+    this.boxer.push(new Boxer(name));
+    }
 
+viewBoxer() {
+    let index = prompt('Enter the index of the Boxer you wish to view');
+    if (index > -1 && index < this.boxer.length) {
+        this.selectedBoxer = this.boxer[index];
+        let description = 'Boxer Name: ' + this.selectedBoxer + '\n';
+    }
+}
+    let selection = this.showBoxerMenuOptions(description);
+    switch (selection) {
+        case '1':
+            this.createBoxer();
+        case '2':
+            this.deleteBoxer();
+    }
+    deleteBoxer() {
+        let index = prompt('Enter the index of the Boxer you wish to delete');
+        if (index > -1 && index < this.boxer.length) {
+            this.boxer.splice(index, 1);
+        }
+    }
+
+
+    
+//Select boxer then complete constructor details. 
+// Add boxer
+// Select Rank, or enter rank
+// enter Boxer information, weight, height, hometown
+// display boxers 
+// add boxers, 
+//.delete boxers
+// 
 
 let menu = new Menu();
 menu.start();
